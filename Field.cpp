@@ -5,6 +5,7 @@
 #include "Field.h"
 
 #include <iostream>
+#include <ncurses.h>
 #include <vector>
 
 using namespace std;
@@ -69,28 +70,21 @@ void Field::setDigitsAroundMines() {
 }
 
 void Field::showField() {
+    clear();
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             if (field[i][j] == BORDER) {
-                cout << "#";
+                printw("#");
             } else if (field[i][j] == EMPTY_CELL) {
-                 cout << " ";
+                printw(" ");
             } else if (field[i][j] == MINE) {
-                cout << "X";
+                printw("X");
             } else if (field[i][j] >= 1 && field[i][j] <= 8) {
-                cout << field[i][j];
+                printw("%d", field[i][j]);
             }
-
-
-
-            //cout << field [i][j] << " ";
-            // if (i == 0 || j == 0 || i == size - 1 || j == size - 1) {
-            //     cout << "x";
-            // } else {
-            //     cout << " ";
-            // }
         }
-        cout << endl;
+        printw("\n");
     }
+    refresh();
 }
 
