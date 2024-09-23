@@ -47,6 +47,27 @@ void Field::setRandomMines(int numMines) {
     }
 }
 
+void Field::setDigitsAroundMines() {
+    int counter = 0;
+    for (int i = 1; i < size - 1; ++i) {
+        for (int j = 1; j < size - 1; ++j) {
+            if (field[i][j] == MINE) {
+                continue;
+            }
+            if (field[i + 1][j] == MINE) counter++;
+            if (field[i - 1][j] == MINE) counter++;
+            if (field[i][j - 1] == MINE) counter++;
+            if (field[i][j + 1] == MINE) counter++;
+            if (field[i + 1][j + 1] == MINE) counter++;
+            if (field[i + 1][j - 1] == MINE) counter++;
+            if (field[i - 1][j + 1] == MINE) counter++;
+            if (field[i - 1][j - 1] == MINE) counter++;
+            field[i][j] = counter;
+            counter = 0;
+        }
+    }
+}
+
 void Field::showField() {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
@@ -56,6 +77,8 @@ void Field::showField() {
                  cout << " ";
             } else if (field[i][j] == MINE) {
                 cout << "X";
+            } else if (field[i][j] >= 1 && field[i][j] <= 8) {
+                cout << field[i][j];
             }
 
 

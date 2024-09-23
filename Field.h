@@ -20,6 +20,7 @@ public:
     Field();
     void initField();
     void setRandomMines(int numMines);
+    void setDigitsAroundMines();
     void showField();
 };
 

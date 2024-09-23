@@ -31,5 +31,6 @@ void Game::run() {
     Field field;
     field.initField();
     field.setRandomMines(1);
+    field.setDigitsAroundMines();
     field.showField();
 }
