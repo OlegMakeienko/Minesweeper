@@ -7,7 +7,11 @@ add_executable(Minesweeper main.cpp
         Game.cpp
         Game.h
         Field.cpp
-        Field.h)
+        Field.h
+        Player.cpp
+        Player.h
+        utils.cpp
+        utils.h)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 target_link_libraries(Minesweeper ${CURSES_LIBRARIES})
