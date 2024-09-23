@@ -38,7 +38,7 @@ void Game::run() {
     field.setRandomMines(1);
     field.setDigitsAroundMines();
     field.showField();
-    player.choice();
+    player.choice(field);
 
     getch(); // Vänta på användarens input
     //endwin(); // Avsluta ncurses-läget
