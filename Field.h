@@ -22,6 +22,7 @@ public:
     void setRandomMines(int numMines);
     void setDigitsAroundMines();
     void showField();
+    bool isBorder(int x, int y);
 };
 
 

@@ -88,3 +88,7 @@ void Field::showField() {
     refresh();
 }
 
+bool Field::isBorder(int x, int y) {
+    return field[x][y] == BORDER;
+}
+
