@@ -4,13 +4,13 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
-
+#include "Field.h"
 
 
 class Player {
     public:
     Player();
-    void choice();
+    void choice(Field &field);
 };
 
 
