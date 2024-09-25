@@ -96,7 +96,12 @@ void Field::showField() {
         }
         printw("\n");
     }
-    refresh();
+}
+
+void Field::reveal(int x, int y) {
+    if (x > 0 && x < size - 1 && y > 0 && y < size - 1) {
+        mask[y][x] = 1;
+    }
 }
 
 bool Field::isBorder(int x, int y) {
