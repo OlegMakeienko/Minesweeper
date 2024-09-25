@@ -8,10 +8,12 @@
 #include <ncurses.h>
 #include <vector>
 
+#include "utils.h"
+
 using namespace std;
 
 Field::Field() {
-    size = 7;
+    size = 10;
     initFieldWithMask();
 }
 
@@ -98,10 +100,15 @@ void Field::showField() {
     }
 }
 
-void Field::reveal(int x, int y) {
+int Field::reveal(int x, int y) {
     if (x > 0 && x < size - 1 && y > 0 && y < size - 1) {
         mask[y][x] = 1;
+        if (field[y][x] == MINE) {
+            return 0;
+        }
+        return 1;
     }
+    return 1;
 }
 
 bool Field::isBorder(int x, int y) {

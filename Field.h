@@ -24,7 +24,7 @@ public:
     void setDigitsAroundMines();
     void showField();
     bool isBorder(int x, int y);
-    void reveal(int x, int y);
+    int reveal(int x, int y);
 
     int getWidth() { return size; }
     int getHeight() { return size; }
