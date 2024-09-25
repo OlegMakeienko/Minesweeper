@@ -10,8 +10,7 @@
 
 using namespace std;
 
-Player::Player() {
-}
+Player::Player() {}
 
 void Player::choice(Field &field) {
     int ch = 0;
@@ -42,7 +41,13 @@ void Player::choice(Field &field) {
                 if (y > 1) y--;
             break;
             case 10: //Enter
-                field.reveal(x, y);
+                if (field.reveal(x, y) == 0) {
+                    clear();
+                    field.showField();
+                    gotoxy(30,4);
+                    printw("GAME OVER");
+                    return;
+                }
             break;
         }
 
@@ -50,7 +55,6 @@ void Player::choice(Field &field) {
             x = prevX;
             y = prevY;
         }
-
         clear();
         field.showField();
         gotoxy(x, y);
