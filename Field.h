@@ -16,13 +16,18 @@ private:
     const int EMPTY_CELL = 0;
     int size;
     vector <vector <int>> field;
+    vector <vector <int>> mask;
 public:
     Field();
-    void initField();
+    void initFieldWithMask();
     void setRandomMines(int numMines);
     void setDigitsAroundMines();
     void showField();
     bool isBorder(int x, int y);
+    void reveal(int x, int y);
+
+    int getWidth() { return size; }
+    int getHeight() { return size; }
 };
 
 

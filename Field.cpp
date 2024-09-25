@@ -12,19 +12,27 @@ using namespace std;
 
 Field::Field() {
     size = 7;
+    initFieldWithMask();
 }
 
-void Field::initField() {
+void Field::initFieldWithMask() {
+    field.clear();
+    mask.clear();
+
     for (int i = 0; i < size; i++) {
         vector <int> temp;
+        vector <int> maskTemp;
         for (int j = 0; j < size; j++) {
             if (i == 0 || j == 0 || i == size - 1 || j == size - 1) {
                 temp.push_back(BORDER);
+                maskTemp.push_back(1); // för att se border
             } else {
                 temp.push_back(EMPTY_CELL);
+                maskTemp.push_back(0); //field öppnas
             }
         }
         field.push_back(temp);
+        mask.push_back(maskTemp);
     }
 }
 
@@ -70,17 +78,20 @@ void Field::setDigitsAroundMines() {
 }
 
 void Field::showField() {
-    clear();
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            if (field[i][j] == BORDER) {
-                printw("#");
-            } else if (field[i][j] == EMPTY_CELL) {
-                printw(" ");
-            } else if (field[i][j] == MINE) {
-                printw("X");
-            } else if (field[i][j] >= 1 && field[i][j] <= 8) {
-                printw("%d", field[i][j]);
+            if (mask[i][j]) { //öppnade celler
+                if (field[i][j] == BORDER) {
+                    printw("#");
+                } else if (field[i][j] == EMPTY_CELL) {
+                    printw(" ");
+                } else if (field[i][j] == MINE) {
+                    printw("X");
+                } else {
+                    printw("%d", field[i][j]);
+                }
+            } else {
+                printw("-"); // gömda celler
             }
         }
         printw("\n");
@@ -94,4 +105,3 @@ bool Field::isBorder(int x, int y) {
     }
     return field[x][y] == BORDER;
 }
-
