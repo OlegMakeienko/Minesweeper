@@ -41,13 +41,17 @@ void Player::choice(Field &field) {
                 if (y > 1) y--;
             break;
             case 10: //Enter
-                if (field.reveal(x, y) == 0) {
+                if (field.reveal(x, y) == MINE) {
                     clear();
                     field.showField();
-                    gotoxy(30,4);
-                    printw("GAME OVER");
+                    mvprintw(5, 35, "GAME OVER");
                     return;
-                }
+                 } else if (field.reveal(x, y) == EMPTY_CELL) {
+                     //clear();
+                     field.openNearlyCells(y, x);
+                     //field.revealRecursive(x, y);
+                     field.showField();
+                 }
             break;
         }
 

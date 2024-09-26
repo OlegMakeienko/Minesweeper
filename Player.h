@@ -6,13 +6,10 @@
 #define PLAYER_H
 #include "Field.h"
 
-
 class Player {
     public:
     Player();
     void choice(Field &field);
 };
-
-
 
 #endif //PLAYER_H
