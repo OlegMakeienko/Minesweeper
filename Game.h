@@ -5,8 +5,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-
-
 class Game {
 private:
     void showLogo();
@@ -14,7 +12,5 @@ private:
 public:
     void run();
 };
-
-
 
 #endif //GAME_H

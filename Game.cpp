@@ -16,8 +16,8 @@ using namespace std;
 void Game::showLogo() {
 
     initscr();
-    gotoxy(40, 5);
-    printw("Minesweeper (by Oleg Makeienko)");
+    //gotoxy(40, 5);
+    mvprintw(10, 45, "Minesweeper (by Oleg Makeienko)");
     refresh();
     napms(2000);
     clear();
@@ -26,22 +26,23 @@ void Game::showLogo() {
 }
 
 void Game::run() {
-    system("clear"); // Rensa terminalen innan du använder ncurses
+    showLogo();
+    clear();
     initscr();
     refresh();
-    keypad(stdscr, TRUE); // Enable keypad input
-    noecho(); // Disable echoing of characters
+    keypad(stdscr, TRUE);
+    noecho();
 
     Field field;
     Player player;
     field.initFieldWithMask();
-    field.setRandomMines(1);
+    field.setRandomMines(19);
     field.setDigitsAroundMines();
     field.showField();
     player.choice(field);
 
     getch(); // Vänta på användarens input
-    //endwin(); // Avsluta ncurses-läget
+    endwin();
 }
 
 
