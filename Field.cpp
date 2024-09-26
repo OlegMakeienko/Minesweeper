@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <ncurses.h>
+#include <stack>
 #include <vector>
 
 #include "utils.h"
@@ -13,7 +14,7 @@
 using namespace std;
 
 Field::Field() {
-    size = 10;
+    size = 20;
     initFieldWithMask();
 }
 
@@ -102,13 +103,17 @@ void Field::showField() {
 
 int Field::reveal(int x, int y) {
     if (x > 0 && x < size - 1 && y > 0 && y < size - 1) {
-        mask[y][x] = 1;
+        mask[y][x] = OPEN;
         if (field[y][x] == MINE) {
-            return 0;
+            return MINE;
+        } else if (field[y][x] == EMPTY_CELL) {
+            openNearlyCells(y, x);
+            //revealRecursive(y, x);
+            return EMPTY_CELL;
         }
-        return 1;
+        return OPEN;
     }
-    return 1;
+    return OPEN;
 }
 
 bool Field::isBorder(int x, int y) {
@@ -117,3 +122,67 @@ bool Field::isBorder(int x, int y) {
     }
     return field[x][y] == BORDER;
 }
+
+void Field::openNearlyCells(int x, int y) {
+    stack<pair<int, int>> stk;
+    stk.push({x, y});
+
+    while (!stk.empty()) {
+        pair<int, int> current = stk.top();
+        stk.pop();
+
+        int cx = current.first;
+        int cy = current.second;
+
+        if (mask[cx][cy] == OPEN || field[cx][cy] == MINE || field[cx][cy] == BORDER) {
+            continue;
+        }
+
+       mask[cx][cy] = OPEN;
+
+        if (field[cx][cy] != EMPTY_CELL) {
+            continue;
+        }
+
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) {
+                    continue;
+                }
+                int nx = cx + dx;
+                int ny = cy + dy;
+
+                if (nx > 0 && nx < size - 1 && ny > 0 && ny < size - 1) {
+                    if (mask[nx][ny] == 0) {
+                        stk.push({nx, ny});
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Field::revealRecursive(int x, int y) {
+    // if (x <= 0 || x >= size - 1 || y <= 0 || y >= size - 1) {
+    //     return;
+    // }
+
+    if (mask[x][y] == OPEN || field[x][y] == MINE || field[x][y] == BORDER) {
+        return;
+    }
+
+    mask[y][x] = OPEN;
+
+    if (field[x][y] != EMPTY_CELL) {
+        return;
+    }
+
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx != 0 || dy != 0) {
+                revealRecursive(x + dx, y + dy);
+            }
+        }
+    }
+}
+

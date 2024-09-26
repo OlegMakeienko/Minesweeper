@@ -8,12 +8,13 @@
 
 using namespace std;
 
+#include "Constanter.h"
 
 class Field {
 private:
-    const int BORDER = 100;
-    const int MINE = 10;
-    const int EMPTY_CELL = 0;
+    // const int BORDER = 100;
+    // const int MINE = 10;
+    // const int EMPTY_CELL = 0;
     int size;
     vector <vector <int>> field;
     vector <vector <int>> mask;
@@ -25,6 +26,8 @@ public:
     void showField();
     bool isBorder(int x, int y);
     int reveal(int x, int y);
+    void openNearlyCells(int x, int y);
+    void revealRecursive(int x, int y);
 
     int getWidth() { return size; }
     int getHeight() { return size; }
