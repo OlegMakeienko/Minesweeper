@@ -11,7 +11,9 @@ add_executable(Minesweeper main.cpp
         Player.cpp
         Player.h
         utils.cpp
-        utils.h)
+        utils.h
+        Constanter.cpp
+        Constanter.h)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 target_link_libraries(Minesweeper ${CURSES_LIBRARIES})
